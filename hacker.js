@@ -43,7 +43,7 @@ if (program.posts) {
       console.log(stories);
     })
     .catch(function (err) {
-      // Crawling failed or Cheerio choked...
+      console.log('error', err);
     });
 
 }
