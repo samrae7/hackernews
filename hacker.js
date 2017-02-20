@@ -3,7 +3,7 @@
 
 const program = require('commander');
 const rp = require('request-promise');
-const cheerio = require('cheerio'); // Basically jQuery for node.js
+const cheerio = require('cheerio');
 
 const options = {
   uri: 'https://news.ycombinator.com/',
@@ -14,31 +14,29 @@ const options = {
 
 program
   .version('0.0.1')
-  .option('-p, --posts <n>', 'get posts')
+  .option('--posts <n>')
   .parse(process.argv);
 
 let stories = [];
 if (program.posts) {
-  console.log('posts', program.posts);
+  console.log('Getting top %s posts', program.posts);
   rp(options)
     .then(function ($) {
-      // Process html like you w
-      // ould with jQuery...
-      // console.log($.html(), 'dollar');
       $('tr.athing').each(function(i, element) {
         let story = {}
         if (i >= program.posts) {
           return false;
         }
-        let cheerioObject = $(element);
-        story.title = $(element).find('.storylink').text();
-        story.uri = $(element).find('.storylink').attr('href');
-        story.author = $(element).next().find('.hnuser').text();
-        let pointsString = cheerioObject.next().find('.score').text();
+        let row1 = $(element);
+        let row2 = row1.next();
+        story.title = row1.find('.storylink').text();
+        story.uri = row1.find('.storylink').attr('href');
+        story.author = row2.find('.hnuser').text();
+        let pointsString = row2.find('.score').text();
         story.points = parseInt(pointsString);
-        let commentsString = cheerioObject.next().find('a[href^="hide?"]').next().text();
+        let commentsString = row2.find('a[href^="hide?"]').next().text();
         story.comments = parseInt(commentsString);
-        let rankString = cheerioObject.find('.rank').text();
+        let rankString = row1.find('.rank').text();
         story.rank = parseInt(rankString);
         stories.push(story);
       });
