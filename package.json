@@ -1,8 +1,8 @@
 {
-  "name": "hacker",
+  "name": "hackernews",
   "version": "1.0.0",
   "description": "",
-  "main": "hacker.js",
+  "main": "hackerNews.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,9 +12,10 @@
     "cheerio": "^0.22.0",
     "commander": "^2.9.0",
     "request": "^2.79.0",
-    "request-promise": "^4.1.1"
+    "request-promise": "^4.1.1",
+    "valid-url": "^1.0.9"
   },
   "bin": {
-    "hacker": "hacker.js"
+    "hackernews": "hackerNews.js"
   }
 }
