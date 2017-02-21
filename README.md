@@ -1,9 +1,16 @@
-#Hacker News top Stories Scraper
+#Hacker News Scraper
 ==
+
+##
+Simple command line app written in Node.js/ES6. Scrapes the hacker news homepage and returns top posts in JSON format.
 
 ## Quick setup
 
-Clone the repo from github, then from the project directory
+Clone the repo from github, then open terminal and navigate to the project directory.
+
+You should have node 4.7.3 or higher to run this project.
+
+Run:
 
 'npm install'
 
