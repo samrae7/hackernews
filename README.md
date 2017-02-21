@@ -12,7 +12,7 @@ Run:
 
 `npm install`
 
-'npm install -g hackernews`
+`npm install -g hackernews`
 
 After that you can run the app with:
 
