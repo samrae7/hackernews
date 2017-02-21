@@ -15,7 +15,7 @@ const options = {
 
 program
   .version('0.0.1')
-  .option('-p, --posts <n>', 'Number of posts as integer', parseInt)
+  .option('-p, --posts <n>', 'Number of posts as integer', parseInt, null)
   .parse(process.argv);
 
 if (program.posts && Story.validateInteger(program.posts)) {
@@ -36,7 +36,7 @@ if (program.posts && Story.validateInteger(program.posts)) {
       });
       stories = JSON.stringify(stories, null, 4);
 
-      //using console.log instead of STDOUt.write as console.log uses it anyway
+      //using console.log instead of STDOUT.write as console.log uses it anyway
       console.log(stories);
     })
     .catch(function (err) {
