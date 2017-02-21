@@ -1,5 +1,4 @@
 #Hacker News Scraper
-==
 
 Simple command line app written in Node.js/ES6. Scrapes the hacker news homepage and returns top posts in JSON format.
 
