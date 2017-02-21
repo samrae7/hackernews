@@ -17,27 +17,62 @@ program
   .option('--posts <n>')
   .parse(process.argv);
 
-let stories = [];
+class Story {
+  constructor(row1) {
+    //use .next to grab next row, which contains author, points and comments
+    let row2 = row1.next();
+    this.title = this.getTitle(row1);
+    this.uri = this.getUri(row1);
+    this.author = this.getAuthor(row2);
+    this.points = this.getPoints(row2);
+    this.comments = this.getComments(row2);
+    this.rank = this.getRank(row1);
+  }
+
+  getTitle(row) {
+    return row.find('.storylink').text();
+  }
+
+  getUri(row) {
+    return row.find('.storylink').attr('href');
+  }
+
+  getAuthor(row) {
+    return row.find('.hnuser').text();
+  }
+
+  getPoints(row) {
+    let pointsString = row.find('.score').text();
+    return parseInt(pointsString);
+  }
+
+  getComments(row) {
+    let commentsString = row.find('a[href^="hide?"]').next().text();
+    return parseInt(commentsString);
+  }
+
+  getRank(row) {
+    let rankString = row.find('.rank').text();
+    return parseInt(rankString);
+  }
+
+
+}
+
 if (program.posts) {
-  console.log('Getting top %s posts', program.posts);
+  let stories = [];
+  console.log('Getting top %s posts...', program.posts);
   rp(options)
     .then(function ($) {
+      //grab rows that contain story title and uri
       $('tr.athing').each(function(i, element) {
-        let story = {}
+        //return false after we have iterated over the specified no. of posts
         if (i >= program.posts) {
           return false;
         }
+        //get cheerio object
         let row1 = $(element);
-        let row2 = row1.next();
-        story.title = row1.find('.storylink').text();
-        story.uri = row1.find('.storylink').attr('href');
-        story.author = row2.find('.hnuser').text();
-        let pointsString = row2.find('.score').text();
-        story.points = parseInt(pointsString);
-        let commentsString = row2.find('a[href^="hide?"]').next().text();
-        story.comments = parseInt(commentsString);
-        let rankString = row1.find('.rank').text();
-        story.rank = parseInt(rankString);
+        let story = new Story(row1);
         stories.push(story);
       });
       console.log(stories);
@@ -45,5 +80,4 @@ if (program.posts) {
     .catch(function (err) {
       console.log('error', err);
     });
-
 }
