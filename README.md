@@ -6,7 +6,7 @@ Simple command line app written in Node.js/ES6. Scrapes the hacker news homepage
 
 Clone the repo from github, then open terminal and navigate to the project directory.
 
-You should have node 4.7.3 or higher to run this project.
+You should have node v4.7.3 or higher to run this project.
 
 Run:
 
