@@ -1,6 +1,6 @@
 #Hacker News Scraper
 
-Simple command line app written in Node.js/ES6. Scrapes the hacker news homepage and returns top posts in JSON format.
+Simple command line app written in Node.js/ES6. Scrapes the [Hacker News](https://news.ycombinator.com/) homepage and returns top posts in JSON format.
 
 ## Quick setup
 
@@ -52,3 +52,9 @@ Alternatively, if you don't want to install hackernews globally, you can run the
 - You can specify how many posts you'd like information for. The data is output to the terminal window
 - Story properties will return null if they do not pass validation (and a warning will appear in the console)
 - Likewise the imput param (number of posts) is parsed as an integer and then validated
+
+## Libraries used, and why
+- Cheerio the node implementation of jQuery, to grab data from the DOM
+- Commander, which has helper methods to help write a command line app in node
+- Valid-uri - npm library with function to validate a uri
+- request-promise - promise-based implementation of request, used to get the data from the Hacker News page
