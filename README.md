@@ -1,6 +1,6 @@
 #Hacker News Scraper
 
-Simple command line app written in Node.js/ES6. Scrapes the [Hacker News](https://news.ycombinator.com/) homepage and returns top posts in JSON format.
+Simple command line app written in Node.js. Scrapes the [Hacker News](https://news.ycombinator.com/) homepage and returns top posts in JSON format.
 
 ## Quick setup
 
