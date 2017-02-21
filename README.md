@@ -48,6 +48,7 @@ Alternatively, if you don't want to install hackernews globally, you can run the
 
 ## Description
 
-> This script will scrape data from the [Hacker News homepage](https://news.ycombinator.com/)
-> You can specify how many posts you'd like information for. The data is output to the terminal window
-> Story properties will return null if they do not pass validation (and a warning will appear in the console)
+- This script will scrape data from the [Hacker News homepage](https://news.ycombinator.com/)
+- You can specify how many posts you'd like information for. The data is output to the terminal window
+- Story properties will return null if they do not pass validation (and a warning will appear in the console)
+- Likewise the imput param (number of posts) is parsed as an integer and then validated
