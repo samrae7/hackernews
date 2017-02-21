@@ -15,7 +15,7 @@ const options = {
 
 program
   .version('0.0.1')
-  .option('--posts <n>', 'Number of posts as integer', parseInt, 30)
+  .option('-p, --posts <n>', 'Number of posts as integer', parseInt)
   .parse(process.argv);
 
 if (program.posts && Story.validateInteger(program.posts)) {
