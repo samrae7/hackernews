@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const Story = require('./Story');
+const Post = require('./Post');
 const program = require('commander');
 const rp = require('request-promise');
 const cheerio = require('cheerio');
@@ -18,8 +18,8 @@ program
   .option('-p, --posts <n>', 'Number of posts as integer', parseInt, null)
   .parse(process.argv);
 
-if (program.posts && Story.validateInteger(program.posts)) {
-  let stories = [];
+if (program.posts && Post.validateInteger(program.posts)) {
+  let posts = [];
   console.log('Getting top %s Hacker News posts...', program.posts);
   rp(options)
     .then(function ($) {
@@ -28,16 +28,22 @@ if (program.posts && Story.validateInteger(program.posts)) {
         //return false after we have iterated over the specified no. of posts
         if (i >= program.posts) {
           return false;
+        } else {
+          //get cheerio object
+          let titleRow = $(element);
+          try {
+            let post = new Post(titleRow);
+            posts.push(post);
+          }
+          catch(error) {
+            console.warn(`Skipping post ${i}`, error);
+          }
         }
-        //get cheerio object
-        let titleRow = $(element);
-        let story = new Story(titleRow);
-        stories.push(story);
       });
-      stories = JSON.stringify(stories, null, 4);
+      posts = JSON.stringify(posts, null, 4);
 
       //using console.log instead of STDOUT.write as console.log uses it anyway
-      console.log(stories);
+      console.log(posts);
     })
     .catch(function (err) {
       console.error('error', err);

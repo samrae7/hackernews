@@ -2,49 +2,58 @@
 
 const validUrl = require('valid-url');
 
-class Story {
+class Post {
   constructor(titleRow) {
-    //use .next to grab next row, which contains author, points and comments
-    let authorRow = titleRow.next();
     this.title = this.getTitle(titleRow);
     this.uri = this.getUri(titleRow);
+    this.rank = this.getRank(titleRow);
+    //use .next to grab next row, which contains author, points and comments
+    let authorRow = titleRow.next();
     this.author = this.getAuthor(authorRow);
     this.points = this.getPoints(authorRow);
     this.comments = this.getNoOfComments(authorRow);
-    this.rank = this.getRank(titleRow);
+    this.validate();
+  }
+
+  validate() {
+    Post.validateString(this.title);
+    Post.validateString(this.author);
+    Post.validateUri(this.uri);
+    Post.validateInteger(this.points);
+    Post.validateInteger(this.comments);
+    Post.validateInteger(this.rank);
   }
 
   getTitle(row) {
-    let titleString = row.find('.storylink').text();
-    return Story.validateString(titleString);
+    return row.find('.storylink').text();
   }
 
   getUri(row) {
     let uriString = row.find('.storylink').attr('href');
-    return Story.validateUri(uriString);
+    return Post.validateUri(uriString);
   }
 
   getAuthor(row) {
     let authorString = row.find('.hnuser').text();
-    return Story.validateString(authorString);
+    return Post.validateString(authorString);
   }
 
   getPoints(row) {
     let pointsString = row.find('.score').text();
     let points = parseInt(pointsString);
-    return Story.validateInteger(points);
+    return Post.validateInteger(points);
   }
 
   getNoOfComments(row) {
     let noOfCommentsString = row.find('a[href^="hide?"]').next().text();
     let noOfComments = parseInt(noOfCommentsString);
-    return Story.validateInteger(noOfComments);
+    return Post.validateInteger(noOfComments);
   }
 
   getRank(row) {
     let rankString = row.find('.rank').text();
     let rank = parseInt(rankString);
-    return Story.validateInteger(rank);
+    return Post.validateInteger(rank);
   }
 
   static validateString(suspect) {
@@ -55,8 +64,7 @@ class Story {
     ){
       return suspect;
     } else {
-      console.warn('Invalid string. Strings should be between 0 and 256 characters', suspect);
-      return null;
+      throw Error('Invalid string. Strings should be between 1 and 256 characters', suspect);
     }
   }
 
@@ -64,8 +72,7 @@ class Story {
     if (validUrl.isUri(suspect)){
       return suspect;
     } else {
-      console.warn('Invalid URI: ', suspect);
-      return null;
+      throw Error('Invalid URI', suspect);
     }
   }
 
@@ -77,10 +84,9 @@ class Story {
     ){
       return suspect;
     } else {
-      console.warn('Invalid: not a positive integer');
-      return null;
+      throw Error('Invalid number: must be integer >= 0', suspect);
     }
   }
 }
 
-module.exports = Story;
+module.exports = Post;

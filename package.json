@@ -17,5 +17,8 @@
   },
   "bin": {
     "hackernews": "hackerNews.js"
+  },
+  "devDependencies": {
+    "jasmine": "^2.5.3"
   }
 }
