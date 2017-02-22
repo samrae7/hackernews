@@ -36,7 +36,7 @@ if (program.posts && Post.validateInteger(program.posts)) {
             posts.push(post);
           }
           catch(error) {
-            console.warn(`Skipping post ${i}`, error);
+            console.warn(`Skipping post ${i + 1}`, error);
           }
         }
       });
