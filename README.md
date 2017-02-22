@@ -24,6 +24,14 @@ Alternatively, if you don't want to install hackernews globally, you can run the
 
 `./hackerNews.js --posts <n>`
 
+## Tests
+
+Run:
+
+`jamine`
+
+from the project route
+
 ## Sample output
 ```
 [
@@ -58,3 +66,4 @@ Alternatively, if you don't want to install hackernews globally, you can run the
 - Commander, which has helper methods to help write a command line app in node
 - Valid-uri - npm library with function to validate a uri
 - request-promise - promise-based implementation of request, used to get the data from the Hacker News page
+- Jasmine, for unit tests
